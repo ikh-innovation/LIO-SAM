@@ -1,0 +1,10 @@
+bag_transform:
+  input_bag: "/home/aristos/catkin_ws/bags/kitti.bag"
+  output_bag: "/home/aristos/catkin_ws/bags/kitti_test.bag"
+  topic_frame_id_mapping: '{ 
+    "/imu/raw": "$(arg test_name)/imu_link", 
+    "/points_raw": "$(arg test_name)/velodyne", 
+    "/gps/fix": "$(arg test_name)/imu_link", 
+    "/imu_correct": "$(arg test_name)/imu_enu_link"}'
+  topic_pcl_ring_field_mapping: '{"/points_raw": "line"}'
+  topic_prefix: "$(arg test_name)"

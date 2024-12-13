@@ -1,0 +1,13 @@
+bag_transform:
+  input_bag: "/home/ka_ikh/rosbag_tests_domokos/teleoperation_ground_truth_2024-11-26-15-28-47.bag"
+  output_bag: "/home/ka_ikh/rosbag_tests_domokos/teleoperation_ground_truth_2024-11-26-15-28-47_test.bag"
+  topic_frame_id_mapping: '{ 
+    "/aristos/imu/data_relative": "$(arg test_name)/imu_link", 
+    "/livox/lidar": "$(arg test_name)/velodyne", 
+    "/aristos/filter/positionlla/gnss": "$(arg test_name)/imu_link"}'
+  topic_pcl_ring_field_mapping: '{"/livox/lidar": ["ring", "time"]}'
+  topic_rename_mapping: '{ 
+    "/aristos/imu/data": "/$(arg test_name)/imu_raw", 
+    "/livox/lidar": "/$(arg test_name)/points_raw", 
+    "/aristos/filter/positionlla/gnss": "/$(arg test_name)/gps/fix"}' 
+  write_only_specified: True

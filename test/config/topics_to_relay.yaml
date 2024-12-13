@@ -1,0 +1,29 @@
+topics_to_relay:
+  # - original_topic: "/aristos/filter/positionlla/gnss"
+  #   new_topic: "/test/aristos/filter/positionlla/gnss"
+  #   msg_type: "sensor_msgs/NavSatFix"
+  #   new_frame_id: "test/imu_link"
+  # - original_topic: "/aristos/imu/data"
+  #   new_topic: "/test/aristos/imu/data"
+  #   msg_type: "sensor_msgs/Imu"
+  #   new_frame_id: "test/imu_link"
+
+  - original_topic: "/gps/fix"
+    new_topic: "/$(arg test_name)/gps/fix"
+    msg_type: "sensor_msgs/NavSatFix"
+    new_frame_id: "$(arg test_name)/imu_link"
+
+  - original_topic: "/imu_correct"
+    new_topic: "/$(arg test_name)/imu_correct"
+    msg_type: "sensor_msgs/Imu"
+    new_frame_id: "$(arg test_name)/imu_enu_link"
+
+  - original_topic: "/imu_raw"
+    new_topic: "/$(arg test_name)/imu_raw"
+    msg_type: "sensor_msgs/Imu"
+    new_frame_id: "$(arg test_name)/imu_link"
+
+  - original_topic: "/points_raw"
+    new_topic: "/$(arg test_name)/points_raw"
+    msg_type: "sensor_msgs/PointCloud2"
+    new_frame_id: "$(arg test_name)/velodyne"

@@ -1,0 +1,17 @@
+<launch>
+  <arg name="file" default="/home/aristos/catkin_ws/bags/kitti.bag"/>
+  <arg name="file_test" default="/home/aristos/catkin_ws/bags/kitti_test.bag"/>
+
+  <node pkg="rosbag" type="play" name="playback" args="--clock $(arg file)">
+  </node>
+
+  <node pkg="rosbag" type="play" name="playback_test" ns="test" args="--clock $(arg file_test)">
+  </node>
+
+  <!-- <node pkg="rosbag" type="play" name="playback_test" ns="test" args="--clock $(arg file_test)">
+     <remap from="/gps/fix" to="/test/gps/fix"/>
+     <remap from="/imu_correct" to="/test/imu_correct"/>
+     <remap from="/imu_raw" to="/test/imu_raw"/>
+     <remap from="/points_raw" to="/test/points_raw"/>
+  </node> -->
+</launch>

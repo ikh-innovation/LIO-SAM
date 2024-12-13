@@ -1,0 +1,35 @@
+<launch>
+    <arg name="project" default="lio_sam"/>
+    <arg name="test_name" default="test"/>
+
+   <group ns="$(arg test_name)">
+        <!-- Parameters -->
+        <rosparam file="$(find lio_sam)/$(arg test_name)/config/params.yaml" command="load" subst_value="True">
+            <param name="test_name" value="$(arg test_name)" />
+        </rosparam>
+
+        <!-- <rosparam file="$(find lio_sam)/$(arg test_name)/config/topics_to_relay.yaml" command="load" subst_value="True">
+            <param name="test_name" value="$(arg test_name)" />
+        </rosparam> -->
+
+        <!--- Topic Relay -->
+        <!-- <node pkg="$(arg project)" type="relay.py"   name="$(arg test_name)_topic_relay" output="screen" respawn="true"/> -->
+
+        <!--- LOAM -->
+        <include file="$(find lio_sam)/$(arg test_name)/launch/include/module_loam.launch" />
+
+        <!--- Robot State TF -->
+        <include file="$(find lio_sam)/$(arg test_name)/launch/include/module_robot_state_publisher.launch" >
+            <arg name="test_name" default="$(arg test_name)"/>
+        </include>
+
+        <!--- Run Navsat -->
+        <include file="$(find lio_sam)/$(arg test_name)/launch/include/module_navsat.launch" />
+
+        <!--- Run Rviz-->
+        <!-- <include file="$(find lio_sam)/$(arg test_name)/launch/include/module_rviz.launch" >
+            <arg name="test_name" default="$(arg test_name)"/>
+        </include> -->
+    </group>
+
+</launch>

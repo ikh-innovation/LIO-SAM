@@ -1,0 +1,13 @@
+<launch>
+
+	<arg name="project" default="lio_sam"/>
+    <arg name="test_name" default="test"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find lio_sam)/$(arg test_name)/launch/include/config/robot.urdf.xacro --inorder" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true">
+        <!-- <param name="tf_prefix" value="$(env ROS_HOSTNAME)"/> -->
+        <param name="tf_prefix" value="$(arg test_name)"/>
+    </node>
+  
+</launch>

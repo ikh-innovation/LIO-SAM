@@ -1,0 +1,16 @@
+<launch>
+    <arg name="project" default="lio_sam"/>
+    <arg name="test_name" default="test"/>
+
+   <group ns="$(arg test_name)">
+        <!-- Parameters -->
+        <rosparam file="$(find lio_sam)/$(arg test_name)/config/bag_transform.yaml" command="load" subst_value="True">
+            <param name="test_name" value="$(arg test_name)" />
+        </rosparam>
+
+        <!--- Rosbag transform -->
+        <node pkg="$(arg project)" type="rosbag_transform.py"   name="bag_transform" output="screen"/>
+        
+    </group>
+
+</launch>
