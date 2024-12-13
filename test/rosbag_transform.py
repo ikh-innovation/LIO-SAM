@@ -17,7 +17,7 @@ def modify_bag(input_bag_path, output_bag_path, topic_frame_id_mapping, topic_pc
     :param topic_prefix: Prefix to add to topic names
     """
     if not os.path.exists(input_bag_path):
-        raise FileNotFoundError("Input bag file does not exist: {}".format(input_bag_path))
+        raise Exception("Input bag file does not exist: {}".format(input_bag_path))
 
     with rosbag.Bag(input_bag_path, 'r') as input_bag, rosbag.Bag(output_bag_path, 'w') as output_bag:
 
