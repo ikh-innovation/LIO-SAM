@@ -34,6 +34,13 @@
             <arg name="test_name" default="$(arg test_name)"/>
         </include>
 
+        <!-- Multiple maps node -->
+        <include file="$(find aristos_maps)/launch/multiple_maps.launch" >
+            <arg name="map_file" default="$(env HOME)/.ikh/fields/gr-domokos-field/maps/multimap_environment.yaml"/>
+            <arg name="maps_path" default="$(env HOME)/.ikh/fields/gr-domokos-field/maps"/>
+        </include>
+
+
         <!-- <node pkg="$(arg project)" type="aristos_rosbag_play.py"   name="aristos_rosbag_play" output="screen" respawn="true" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@'"/> -->
         
     </group>
