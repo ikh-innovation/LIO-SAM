@@ -41,12 +41,12 @@ lio_sam:
 
 
   # IMU Settings
-  imuAccNoise: 3.9939570888238808e-03
-  imuGyrNoise: 1.5636343949698187e-03
-  imuAccBiasN: 6.4356659353532566e-05
-  imuGyrBiasN: 3.5640318696367613e-05
+  imuAccNoise: 3.9939570888238808e-03       ## max(linear_acc covariance)
+  imuGyrNoise: 1.5636343949698187e-03       ## max(angular_vel covariance)
+  imuAccBiasN: 6.4356659353532566e-05       ## acc bias noise
+  imuGyrBiasN: 3.5640318696367613e-05       ## ang_vel bias noise
   imuGravity: 9.80511
-  imuRPYWeight: 0.01
+  imuRPYWeight: 0.01                        ## quaternion slerp intepolation factor [0,1]. Default (0.01) is fine. 
 
   # Extrinsics: T_lb (lidar -> imu)
   # extrinsicTrans: [0.0, 0.0, 0.0]
@@ -59,10 +59,10 @@ lio_sam:
                   0, 0, 1]
 
   # LOAM feature threshold
-  edgeThreshold: 1.0
-  surfThreshold: 0.1
-  edgeFeatureMinValidNum: 1 #10
-  surfFeatureMinValidNum: 50 #100
+  edgeThreshold: 1.0                            ## if cloudCurvature[ind] > edgeThreshold
+  surfThreshold: 0.1                            ## if cloudCurvature[ind] < surfThreshold
+  edgeFeatureMinValidNum: 10 #10                 ## if lower scan2MapOptimization doesnt run
+  surfFeatureMinValidNum: 100 #100               ## if lower scan2MapOptimization doesnt run
 
   # voxel filter paprams
   odometrySurfLeafSize: 0.4                     # default: 0.4 - outdoor, 0.2 - indoor
