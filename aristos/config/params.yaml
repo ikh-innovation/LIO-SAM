@@ -59,34 +59,34 @@ lio_sam:
                   0, 0, 1]
 
   # LOAM feature threshold
-  edgeThreshold: 1.0                            ## if cloudCurvature[ind] > edgeThreshold
-  surfThreshold: 0.1                            ## if cloudCurvature[ind] < surfThreshold
+  edgeThreshold: 1.0                            ## if cloudCurvature[ind] > edgeThreshold: extract features
+  surfThreshold: 0.1                            ## if cloudCurvature[ind] < surfThreshold: extract features
   edgeFeatureMinValidNum: 10 #10                 ## if lower scan2MapOptimization doesnt run
   surfFeatureMinValidNum: 100 #100               ## if lower scan2MapOptimization doesnt run
 
-  # voxel filter paprams
-  odometrySurfLeafSize: 0.4                     # default: 0.4 - outdoor, 0.2 - indoor
-  mappingCornerLeafSize: 0.2                    # default: 0.2 - outdoor, 0.1 - indoor
-  mappingSurfLeafSize: 0.4                      # default: 0.4 - outdoor, 0.2 - indoor
+  # voxel filter params
+  odometrySurfLeafSize: 0.4                     # default: 0.4 - outdoor, 0.2 - indoor  ## downsampling
+  mappingCornerLeafSize: 0.2                    # default: 0.2 - outdoor, 0.1 - indoor  ## downsampling
+  mappingSurfLeafSize: 0.4                      # default: 0.4 - outdoor, 0.2 - indoor  ## downsampling
 
   # robot motion constraint (in case you are using a 2D robot)
-  z_tollerance: 1000                            # meters
-  rotation_tollerance: 1000                     # radians
+  z_tollerance: 1000                            # meters, ## scan2map transform update constraint
+  rotation_tollerance: 1000                     # radians, ## scan2map transform update constraint
 
   # CPU Params
   numberOfCores: 4                              # number of cores for mapping optimization
-  mappingProcessInterval: 0.15                  # seconds, regulate mapping frequency
+  mappingProcessInterval: 0.15                  # seconds, regulate mapping frequency ## mapOptimization main loop frequency (check lio_sam/feature/cloud_info frequency)
 
   # Surrounding map
-  surroundingkeyframeAddingDistThreshold: 0.5 #1.0   # meters, regulate keyframe adding threshold
-  surroundingkeyframeAddingAngleThreshold: 0.2  # radians, regulate keyframe adding threshold
+  surroundingkeyframeAddingDistThreshold: 0.5 #1.0   # meters, regulate keyframe adding threshold  ## if dist(lastKeyPose, trnasfrm2bemapped)<ths frame is not saved
+  surroundingkeyframeAddingAngleThreshold: 0.2       # radians, regulate keyframe adding threshold ## if angle(lastKeyPose, trnasfrm2bemapped)<ths frame is not saved
   surroundingKeyframeDensity: 0.5 #2.0               # meters, downsample surrounding keyframe poses   
-  surroundingKeyframeSearchRadius: 50.0         # meters, within n meters scan-to-map optimization (when loop closure disabled)
+  surroundingKeyframeSearchRadius: 50.0              # meters, within n meters scan-to-map optimization (when loop closure disabled)
 
   # Loop closure
   loopClosureEnableFlag: true
   loopClosureFrequency: 1.0                     # Hz, regulate loop closure constraint add frequency
-  surroundingKeyframeSize: 50                   # submap size (when loop closure enabled)
+  surroundingKeyframeSize: 50                   # submap size (when loop closure enabled) 
   historyKeyframeSearchRadius: 15.0             # meters, key frame that is within n meters from current pose will be considerd for loop closure
   historyKeyframeSearchTimeDiff: 30.0           # seconds, key frame that is n seconds older will be considered for loop closure
   historyKeyframeSearchNum: 25                  # number of hostory key frames will be fused into a submap for loop closure
