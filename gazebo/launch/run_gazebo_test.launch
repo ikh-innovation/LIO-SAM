@@ -1,0 +1,45 @@
+<launch>
+    <arg name="project" default="lio_sam"/>
+    <arg name="test_name" default="aristos"/>
+    <!-- <arg name="node_start_delay" default="10"/> -->
+
+   <group ns="$(arg test_name)">
+        <!-- Parameters -->
+        <rosparam file="$(find lio_sam)/gazebo/config/params.yaml" command="load" subst_value="True">
+            <param name="test_name" value="$(arg test_name)" />
+        </rosparam>
+
+        <!--- Topic Relay -->
+        <!-- <node pkg="$(arg project)" type="relay.py"   name="$(arg test_name)_topic_relay" output="screen" respawn="true"/> -->
+
+        <!--- LOAM -->
+        <include file="$(find lio_sam)/test/launch/include/module_loam.launch" />
+
+        <!--- Robot State TF -->
+        <!-- <include file="$(find lio_sam)/test/launch/include/module_robot_state_publisher.launch" >
+            <arg name="test_name" default="$(arg test_name)"/>
+        </include> -->
+
+        <!--- Run Navsat -->
+        <include file="$(find lio_sam)/test/launch/include/module_navsat.launch" >
+            <arg name="imu_topic" default="imu/data"/>
+            <arg name="gps_topic" default="gnss"/>
+        </include>
+
+        <!--- Run Rviz-->
+        <!-- <include file="$(find lio_sam)/test/launch/include/module_rviz.launch" >
+            <arg name="test_name" default="$(arg test_name)"/>
+        </include> -->
+
+        <!-- Multiple maps node -->
+        <!-- <include file="$(find aristos_maps)/launch/multiple_maps.launch" >
+            <arg name="map_file" default="$(env HOME)/.ikh/fields/gr-domokos-field/maps/multimap_environment.yaml"/>
+            <arg name="maps_path" default="$(env HOME)/.ikh/fields/gr-domokos-field/maps"/>
+        </include> -->
+
+
+        <!-- <node pkg="$(arg project)" type="aristos_rosbag_play.py"   name="aristos_rosbag_play" output="screen" respawn="true" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@'"/> -->
+        
+    </group>
+
+</launch>
