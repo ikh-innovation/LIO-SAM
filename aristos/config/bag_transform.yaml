@@ -1,6 +1,6 @@
 bag_transform:
-  input_bag: "/home/aristos/catkin_ws/bags/teleoperation_ground_truth_2024-11-26-15-28-47.bag"
-  output_bag: "/home/aristos/catkin_ws/bags/teleoperation_ground_truth_2024-11-26-15-28-47_test.bag"
+  input_bag: "/home/aristos/catkin_ws/bags/teleoperation_free_area_aggresive_2_2024-11-26-16-27-09.bag"
+  output_bag: "/home/aristos/catkin_ws/bags/teleoperation_free_area_aggresive_2_2024-11-26-16-27-09_test.bag"
   topic_frame_id_mapping: '{ 
     "/aristos/imu/data": "$(arg test_name)/imu_link", 
     "/livox/lidar": "$(arg test_name)/velodyne", 
@@ -10,5 +10,6 @@ bag_transform:
     "/aristos/imu/data": "/$(arg test_name)/imu_raw", 
     "/livox/lidar": "/$(arg test_name)/points_raw", 
     "/aristos/filter/positionlla/gnss": "/$(arg test_name)/gps/fix",
-    "/aristos/ekf/global/pose_estimation": "/$(arg test_name)/ground_truth"}' 
+    "/aristos/ekf/global/pose_estimation": "/$(arg test_name)/ground_truth", 
+    "/aristos/odometry/gps/onlyRTK": "/$(arg test_name)/odometry/onlyRTK"}' 
   write_only_specified: True
