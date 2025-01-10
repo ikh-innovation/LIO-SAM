@@ -8,7 +8,7 @@ import rospy
 import json 
     
 
-def modify_bag(input_bag_path, output_bag_path, topic_frame_id_mapping, topic_pcl_ring_field_mapping, topic_rename_mapping, write_only_specified):
+def modify_bag(input_bag_path, output_bag_path, topic_frame_id_mapping, topic_child_frame_id_mapping, topic_pcl_ring_field_mapping, topic_rename_mapping, write_only_specified):
     """
     :param input_bag_path: Path to the input bag file
     :param output_bag_path: Path to the output bag file
@@ -27,13 +27,21 @@ def modify_bag(input_bag_path, output_bag_path, topic_frame_id_mapping, topic_pc
                 # Skip topics not in the specified mappings if write_only_specified is True
                 continue
 
-            # Check if the topic is in the mapping
+            # Check if the topic is in the frame_id mapping
             if topic in topic_frame_id_mapping:
                 # Ensure the message has a header and modify the frame_id
                 if hasattr(msg, 'header'): # and isinstance(msg.header, Header):
                     msg.header.frame_id = topic_frame_id_mapping[topic]
                 else:
                     print("Warning: Topic {} does not have a header to modify.".format(topic))
+
+            # Check if the topic is in the child_frame_id mapping
+            if topic in topic_child_frame_id_mapping:
+                # Ensure the message has a child_frame_id and modify the frame_id
+                if hasattr(msg, 'child_frame_id'): # and isinstance(msg.header, Header):
+                    msg.child_frame_id = topic_child_frame_id_mapping[topic]
+                else:
+                    print("Warning: Topic {} does not have a child_frame_id to modify.".format(topic))                    
 
             if topic in topic_pcl_ring_field_mapping:
                 # Ensure the message has fields and modify the ring field name
@@ -63,10 +71,11 @@ if __name__ == "__main__":
     input_bag = rospy.get_param("~input_bag")
     output_bag = rospy.get_param("~output_bag")
     topic_frame_id_mapping = json.loads(rospy.get_param("~topic_frame_id_mapping"))
+    topic_child_frame_id_mapping = json.loads(rospy.get_param("~topic_child_frame_id_mapping"))
     topic_pcl_ring_field_mapping = json.loads(rospy.get_param("~topic_pcl_ring_field_mapping"))
     topic_rename_mapping = json.loads(rospy.get_param("~topic_rename_mapping"))
     write_only_specified = rospy.get_param("~write_only_specified", False)
 
     # Run the modification
-    modify_bag(input_bag, output_bag, topic_frame_id_mapping, topic_pcl_ring_field_mapping, topic_rename_mapping, write_only_specified)
+    modify_bag(input_bag, output_bag, topic_frame_id_mapping, topic_child_frame_id_mapping, topic_pcl_ring_field_mapping, topic_rename_mapping, write_only_specified)
     # print("Modified bag saved to {}".format(output_bag))

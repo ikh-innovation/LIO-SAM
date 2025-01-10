@@ -4,7 +4,9 @@ bag_transform:
   topic_frame_id_mapping: '{ 
     "/aristos/imu/data": "$(arg test_name)/imu_link", 
     "/livox/lidar": "$(arg test_name)/velodyne", 
-    "/aristos/filter/positionlla/gnss": "$(arg test_name)/imu_link"}'
+    "/aristos/filter/positionlla/gnss": "$(arg test_name)/imu_link",
+    "/aristos/wheel/odom": "$(arg test_name)/odom"}'
+  topic_child_frame_id_mapping: '{"/aristos/wheel/odom": "$(arg test_name)/base_link"}'
   topic_pcl_ring_field_mapping: '{"/livox/lidar": ["ring", "time"]}'
   topic_rename_mapping: '{ 
     "/aristos/imu/data": "/$(arg test_name)/imu_raw", 
